@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Successful</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* LOADING SPINNER */
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(0, 0, 0, 0.1);
+      border-top: 5px solid #4CAF50;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* SUCCESS MESSAGE */
+    .success-message {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: #2e7d32;
+      background: #e8f5e9;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: scale(0.8);
+      animation: fadeInUp 0.6s forwards 1.2s; /* starts after loading */
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="loader" id="loader"></div>
+  <div class="success-message" id="success">Payment Successful!</div>
+</div>
+
+<script>
+  // Hide success message initially
+  document.getElementById('success').style.display = 'none';
+
+  // Simulate payment processing (1.5 seconds)
+  setTimeout(() => {
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+  }, 1500);
+</script>
+
+</body>
+</html>

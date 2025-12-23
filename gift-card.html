@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIFT CARD - F&S Clothing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            background-color: #ff5722;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: #e64a19;
+            transform: scale(1.05);
+        }
+
+        .icon-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background 0.3s, transform 0.2s;
+            text-decoration: none;
+        }
+
+        .icon-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn-primary {
+            background: #2196f3;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1976d2;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Category Nav */
+        .category-nav {
+            background: #e74c3c;
+            padding: 0.75rem 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .category-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1.2rem;
+            margin: 0 0.5rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .category-nav a:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            display: block;
+            transition: background 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background: #f1f1f1;
+        }
+
+        /* Gift Card Section */
+        .gift-card-header {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 1.2rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 2rem 0;
+        }
+
+        .gift-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gift-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .gift-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .gift-card img:hover {
+            opacity: 0.9;
+        }
+
+        .gift-card h3 {
+            margin: 1rem 0 0.5rem;
+            font-size: 1.2rem;
+            color: #2c3e50;
+        }
+
+        .gift-card p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Buttons */
+        .gift-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .gift-btn:hover {
+            background: #1976d2;
+        }
+
+        /* Hidden checkboxes for popups */
+        #join-popup,
+        #claim-popup {
+            display: none;
+        }
+
+        /* Popup Overlays */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+        }
+
+        .popup-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            z-index: 2001;
+        }
+
+        /* Show popup when checkbox is checked */
+        #join-popup:checked ~ .join-overlay,
+        #claim-popup:checked ~ .claim-overlay {
+            display: block;
+        }
+
+        /* Close button (label that unchecks the checkbox) */
+        .popup-close {
+            display: inline-block;
+            margin-top: 1rem;
+            background: #6c757d;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .popup-close:hover {
+            background: #5a6268;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .gift-cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .header-right {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hidden checkboxes for popups -->
+    <input type="checkbox" id="join-popup">
+    <input type="checkbox" id="claim-popup">
+
+    <!-- Header -->
+    <header>
+        <div class="logo">F&S Clothing</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="checkout.html">Checkout</a></li>
+            <li><a href="gift-card.html">Gift Cards</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="header-right">
+            <a href="#search" class="icon-link" title="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </a>
+            <a href="#delivery" class="icon-link" title="Delivery">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="1" y="3" width="16" height="13"></rect>
+                    <rect x="1" y="10" width="4" height="3"></rect>
+                    <path d="M5 7h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"></path>
+                    <circle cx="9" cy="17" r="2"></circle>
+                    <circle cx="15" cy="17" r="2"></circle>
+                </svg>
+            </a>
+            <!-- User Icon -->
+<a href="signup.php" class="icon" title="Account" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; text-decoration: none;">
+  <svg xmlns="user.svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+    <circle cx="12" cy="7" r="4"></circle>
+  </svg>
+</a>
+        </div>
+    </header>
+
+    <!-- Category Nav -->
+    <div class="category-nav">
+        <a href="men.html">MEN</a>
+        <a href="women.html">WOMEN</a>
+        <a href="kids.html">KIDS</a>
+        <a href="toys.html">TOYS</a>
+        <div class="dropdown">
+          <a href="#PACKAGE">PACKAGE</a>
+            <div class="dropdown-content">
+                <a href="basic-package.html">Basic Package</a>
+                <a href="standard-package.html">Standard Package</a>
+                <a href="deluxe-package.html">Deluxe Package</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gift Card Header -->
+    <div class="gift-card-header">GIFT CARD</div>
+
+    <!-- Gift Cards Grid -->
+    <div class="gift-cards-grid">
+        <!-- Card 1 -->
+        <div class="gift-card">
+            <img src="1.png" alt="Gift Card 1">
+            <h3>F&S CLOTHING</h3>
+            <p>RS 2000 Voucher</p>
+            <label for="join-popup" class="gift-btn">JOIN NOW</label>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="gift-card">
+            <img src="Red and Green.png" alt="Gift Card 2">
+            <h3>CHRISTMAS SALE</h3>
+            <p>30% OFF BANNER</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="gift-card">
+            <img src="Loyalty Card.png" alt="Gift Card 3">
+            <h3>LOYALTY CARD</h3>
+            <p>High spending rewards</p>
+            <label for="claim-popup" class="gift-btn">CLAIM NOW</label>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="gift-card">
+            <img src="Beige and White.png" alt="Gift Card 4">
+            <h3>F&S CLOTHING</h3>
+            <p>RS 5000 Voucher</p>
+            <label for="join-popup" class="gift-btn">JOIN NOW</label>
+        </div>
+    </div>
+
+    <!-- Join Popup -->
+    <div class="popup-overlay join-overlay">
+        <div class="popup-content">
+            <h3>Joined!</h3>
+            <p>You have successfully joined our program.</p>
+            <label for="join-popup" class="popup-close">Close</label>
+        </div>
+    </div>
+
+    <!-- Claim Popup -->
+    <div class="popup-overlay claim-overlay">
+        <div class="popup-content">
+            <h3>Claimed Successfully!</h3>
+            <p>Your reward has been claimed.</p>
+            <label for="claim-popup" class="popup-close">Close</label>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 F&S Clothing. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout – FS Clothing</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      padding: 20px;
+    }
+    .checkout-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .checkout-header {
+      background: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .checkout-section {
+      padding: 25px;
+      border-bottom: 1px solid #eee;
+    }
+    .checkout-section h2 {
+      margin-bottom: 15px;
+      color: #2c3e50;
+      font-size: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #555;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    .payment-methods {
+      display: flex;
+      gap: 20px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    .payment-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      width: 100px;
+      height: 80px;
+      transition: all 0.2s;
+      background: #fafafa;
+    }
+    .payment-option.active {
+      border-color: #4CAF50;
+      background: #e8f5e9;
+    }
+    .payment-icon {
+      width: 60px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+    }
+    .payment-icon img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .payment-label {
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      color: #333;
+    }
+    .paynow-btn {
+      width: 100%;
+      padding: 14px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    .paynow-btn:hover {
+      background: #45a049;
+    }
+    @media (max-width: 600px) {
+      .payment-methods {
+        gap: 12px;
+      }
+      .payment-option {
+        width: 85px;
+        height: 75px;
+      }
+      .payment-icon {
+        width: 50px;
+        height: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="checkout-container">
+  <div class="checkout-header">
+    Secure Checkout
+  </div>
+
+  <!-- Contact Information -->
+  <div class="checkout-section">
+    <h2>1. Contact Information</h2>
+    <div class="form-group">
+      <input type="email" placeholder="Email" required />
+    </div>
+    <div class="form-group">
+      <input type="tel" placeholder="Phone Number" />
+    </div>
+  </div>
+
+  <!-- Delivery Address -->
+  <div class="checkout-section">
+    <h2>2. Delivery Address</h2>
+    <div class="form-group">
+      <input type="text" placeholder="Full Name" required />
+    </div>
+    <div class="form-group">
+      <input type="text" placeholder="Street Address" required />
+    </div>
+    <div class="form-group">
+      <input type="text" placeholder="City" required />
+    </div>
+    <div class="form-group">
+      <input type="text" placeholder="Postal Code" required />
+    </div>
+  </div>
+
+  <!-- Payment Method with Real Image Paths -->
+  <div class="checkout-section">
+    <h2>3. Payment Method</h2>
+    <div class="payment-methods">
+      <!-- Visa -->
+      <div class="payment-option active" onclick="selectPayment(this, 'visa')">
+        <div class="payment-icon">
+          <img src="visa.png" alt="Visa">
+        </div>
+        <div class="payment-label">Visa</div>
+      </div>
+      
+      <!-- Mastercard -->
+      <div class="payment-option" onclick="selectPayment(this, 'master')">
+        <div class="payment-icon">
+          <img src="mastercard.png" alt="Mastercard">
+        </div>
+        <div class="payment-label">Master</div>
+      </div>
+      
+      <!-- KoPay -->
+      <div class="payment-option" onclick="selectPayment(this, 'ko')">
+        <div class="payment-icon">
+          <img src="koko.png" alt="KoPay">
+        </div>
+        <div class="payment-label">KoPay</div>
+      </div>
+    </div>
+    <input type="hidden" id="selected-payment" name="payment_method" value="visa" />
+
+    <!-- Card Details -->
+    <div class="form-group" style="margin-top: 20px;">
+      <label for="card-number">Card Number</label>
+      <input type="text" id="card-number" placeholder="1234 5678 9012 3456" />
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <div class="form-group" style="flex: 2;">
+        <label for="expiry">Expiry Date</label>
+        <input type="text" id="expiry" placeholder="MM/YY" />
+      </div>
+      <div class="form-group" style="flex: 1;">
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" placeholder="123" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Pay Now Button -->
+  <div class="checkout-section" style="text-align: center; border: none;">
+    <button class="paynow-btn" onclick="window.location.href='payment-success.html'">
+      Pay Now
+    </button>
+  </div>
+</div>
+
+<script>
+  function selectPayment(element, method) {
+    // Remove active class from all options
+    document.querySelectorAll('.payment-option').forEach(el => {
+      el.classList.remove('active');
+    });
+    // Add active to clicked option
+    element.classList.add('active');
+    // Save selected method
+    document.getElementById('selected-payment').value = method;
+  }
+</script>
+
+</body>
+</html>

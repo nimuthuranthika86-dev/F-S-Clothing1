@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail - F&S Clothing</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            background-color: #ff5722;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: #e64a19;
+            transform: scale(1.05);
+        }
+
+        /* Icon Links */
+        .icon-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none;
+        }
+
+        .icon-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1976d2;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Red Category Navigation */
+        .category-nav {
+            background-color: #e74c3c;
+            padding: 0.75rem 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .category-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1.2rem;
+            margin: 0 0.5rem;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .category-nav a:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        /* Gift Voucher Dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Product Detail Container */
+        .product-detail {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 2rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .product-image {
+            width: 300px;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .product-image:hover {
+            opacity: 0.9;
+        }
+
+        .product-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .product-desc {
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .product-meta {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .meta-text {
+            flex: 1;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 1rem 0;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .add-to-cart {
+            background-color: #2196f3;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            flex: 1;
+            text-align: center;
+        }
+
+        .add-to-cart:hover {
+            background-color: #1976d2;
+            transform: scale(1.03);
+        }
+
+        .buy-now {
+            background-color: #9e9e9e;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .buy-now:hover {
+            background-color: #757575;
+            transform: scale(1.03);
+        }
+
+        /* Size Chart Section */
+        .size-chart-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .size-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .size-table {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .size-table.active {
+            display: block;
+        }
+
+        .size-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .size-table th,
+        .size-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .size-table th {
+            background-color: #f1f1f1;
+        }
+
+        .size-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-detail {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .product-image {
+                width: 100%;
+            }
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">F&S Clothing</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="checkout.html">Checkout</a></li>
+            <li><a href="#shop">Gift Cart</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <!-- Search Icon -->
+            <a href="#search" class="icon-link" title="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </a>
+            <!-- Delivery Icon -->
+            <a href="#delivery" class="icon-link" title="Delivery">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="1" y="3" width="16" height="13"></rect>
+                    <rect x="1" y="10" width="4" height="3"></rect>
+                    <path d="M5 7h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"></path>
+                    <circle cx="9" cy="17" r="2"></circle>
+                    <circle cx="15" cy="17" r="2"></circle>
+                </svg>
+            </a>
+            <!-- User Icon -->
+            <a href="signup.php" class="icon-link" title="Account">
+                <svg xmlns="user.svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- Category Navigation Bar -->
+    <div class="category-nav">
+        <a href="men.html">MEN</a>
+        <a href="women.html">WOMEN</a>
+        <a href="kids.html">KIDS</a>
+        <a href="toys.html">TOYS</a>
+        <!--<a href="#fast delivery">FAST DELIVERY</a>-->
+        <div class="dropdown">
+            <a href="#PACKAGE">PACKAGE</a>
+            <div class="dropdown-content">
+                <a href="basic-package.html">Basic Package</a>
+                <a href="standard-package.html">Standard Package</a>
+                <a href="deluxe-package.html">Deluxe Package</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Page -->
+    <div class="product-detail">
+        <!-- Replace src with your actual image path -->
+        <img src="classic_oxford_shirt.jpg" alt="classic_oxford_shirt" class="product-image">
+        
+
+        <div class="product-info">
+            <h1 class="product-title">Classic Oxford Shirt </h1>
+            <p class="product-desc">Crisp Oxford shirt + comfy matching shorts in soft cotton.</p>
+
+            <div class="product-meta">
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="3" width="16" height="13"></rect>
+                            <rect x="1" y="10" width="4" height="3"></rect>
+                            <path d="M5 7h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"></path>
+                            <circle cx="9" cy="17" r="2"></circle>
+                            <circle cx="15" cy="17" r="2"></circle>
+                        </svg>
+                    </div>
+                    <div class="meta-text"><strong>Available Sizes:</strong> 2T | 3T | 4T | 5 | 6 | 7 | 8</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H9"></path>
+                        </svg>
+                    </div>
+                    <div class="meta-text"><strong>Price:</strong> Rs 1500</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H9"></path>
+                        </svg>
+                    </div>
+                    <div class="meta-text">🚚 <strong>Fast Delivery</strong> – Arrives in 2-4 business days!</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H9"></path>
+                        </svg>
+                    </div>
+                    <div class="meta-text">✅ Premium breathable cotton</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H9"></path>
+                        </svg>
+                    </div>
+                    <div class="meta-text">✅ Easy-match neutral tones (white, light blue, or soft gray)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H9"></path>
+                        </svg>
+                    </div>
+                    <div class="meta-text">✅ Machine washable & fade-resistant</div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="add-to-cart">ADD TO CART</button>
+                <a href="checkout.html" class="buy-now">BUY NOW</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Size Chart Toggle Section -->
+    <div class="size-chart-section">
+        <h2>Size Guide</h2>
+        <div class="size-btns">
+            <button class="btn btn-primary" onclick="showSizeChart('men')">Men's Sizes</button>
+            <button class="btn btn-secondary" onclick="showSizeChart('women')">Women's Sizes</button>
+        </div>
+
+        <!-- Men's Size Chart -->
+        <div id="men-size" class="size-table">
+            <h3>Men's Clothing Size Chart (in inches)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Chest</th>
+                        <th>Waist</th>
+                        <th>Sleeve Length</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>S</td>
+                        <td>34–36</td>
+                        <td>28–30</td>
+                        <td>33–34</td>
+                    </tr>
+                    <tr>
+                        <td>M</td>
+                        <td>38–40</td>
+                        <td>32–34</td>
+                        <td>34–35</td>
+                    </tr>
+                    <tr>
+                        <td>L</td>
+                        <td>42–44</td>
+                        <td>36–38</td>
+                        <td>35–36</td>
+                    </tr>
+                    <tr>
+                        <td>XL</td>
+                        <td>46–48</td>
+                        <td>40–42</td>
+                        <td>36–37</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Women's Size Chart -->
+        <div id="women-size" class="size-table" style="display: none;">
+            <h3>Women's Clothing Size Chart (in inches)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Bust</th>
+                        <th>Waist</th>
+                        <th>Hips</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>XS</td>
+                        <td>31–33</td>
+                        <td>24–26</td>
+                        <td>33–35</td>
+                    </tr>
+                    <tr>
+                        <td>S</td>
+                        <td>33–35</td>
+                        <td>26–28</td>
+                        <td>35–37</td>
+                    </tr>
+                    <tr>
+                        <td>M</td>
+                        <td>35–37</td>
+                        <td>28–30</td>
+                        <td>37–39</td>
+                    </tr>
+                    <tr>
+                        <td>L</td>
+                        <td>37–40</td>
+                        <td>30–33</td>
+                        <td>39–42</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 F&S Clothing. All rights reserved.</p>
+    </footer>
+
+    <!-- Size Chart Toggle Script -->
+    <script>
+        function showSizeChart(gender) {
+            document.getElementById('men-size').classList.toggle('active', gender === 'men');
+            document.getElementById('women-size').classList.toggle('active', gender === 'women');
+        }
+    </script>
+
+</body>
+</html>
